@@ -39,7 +39,7 @@ public class CircularProgressDrawable extends Drawable {
      * <p/>
      * In this way the developer can use a more user-friendly [0..1f] progress
      */
-    public static final int PROGRESS_FACTOR = -360;
+    public static final int PROGRESS_FACTOR = 360;
     /**
      * Property Inner Circle Scale.
      * <p/>
@@ -154,7 +154,7 @@ public class CircularProgressDrawable extends Drawable {
 
         // Outline Circle
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(1);
+        paint.setStrokeWidth(ringWidth);
         paint.setColor(outlineColor);
         canvas.drawCircle(bounds.centerX(), bounds.centerY(), outerRadius, paint);
 
@@ -163,11 +163,10 @@ public class CircularProgressDrawable extends Drawable {
         paint.setColor(centerColor);
         canvas.drawCircle(bounds.centerX(), bounds.centerY(), innerRadius, paint);
 
-        int halfRingWidth = ringWidth / 2;
-        float arcX0 = offsetX + halfRingWidth;
-        float arcY0 = offsetY + halfRingWidth;
-        float arcX = offsetX + outerRadius * 2 - halfRingWidth;
-        float arcY = offsetY + outerRadius * 2 - halfRingWidth;
+        float arcX0 = offsetX;
+        float arcY0 = offsetY;
+        float arcX = offsetX + outerRadius * 2;
+        float arcY = offsetY + outerRadius * 2;
 
         // Outer Circle
         paint.setColor(ringColor);
@@ -176,9 +175,9 @@ public class CircularProgressDrawable extends Drawable {
         paint.setStrokeCap(Paint.Cap.ROUND);
         arcElements.set(arcX0, arcY0, arcX, arcY);
         if (indeterminate) {
-            canvas.drawArc(arcElements, progress, 90, false, paint);
+            canvas.drawArc(arcElements, progress, 1, false, paint);
         } else {
-            canvas.drawArc(arcElements, 89, progress, false, paint);
+            canvas.drawArc(arcElements, 271, progress, false, paint);
         }
     }
 
